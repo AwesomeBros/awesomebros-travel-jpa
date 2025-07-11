@@ -1,16 +1,14 @@
-package com.tripgg.server.country.entity;
+package com.tripgg.server.city.entity;
 
-import java.util.List;
+import com.tripgg.server.country.entity.Country;
 
-import com.tripgg.server.city.entity.City;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,14 +18,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "countries")
-public class Country {
+@Entity(name = "cities")
+public class City {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+
   private String name;
 
-  @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<City> cities;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "countries_id")
+  private Country country;
 }
