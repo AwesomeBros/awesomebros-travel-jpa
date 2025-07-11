@@ -8,4 +8,6 @@ public interface PostQueryRepository {
 
   List<Post> findAllBySort(String sort);
 
+  List<Post> findAllByCity(String city);
+
 }

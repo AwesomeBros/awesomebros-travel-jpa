@@ -27,4 +27,13 @@ public class PostServiceImpl implements PostService {
     return response;
   }
 
+  @Override
+  public List<PostResponse> findPostsAllByCity(String city) {
+    List<Post> posts = postQueryRepository.findAllByCity(city);
+    List<PostResponse> response = posts.stream()
+        .map(PostResponse::from)
+        .toList();
+    return response;
+  }
+
 }

@@ -31,4 +31,19 @@ public class PostQueryRepositoryImpl implements PostQueryRepository {
             sort.equals("popular") ? post.viewCount.desc() : post.createdAt.desc())
         .fetch();
   }
+
+  @Override
+  public List<Post> findAllByCity(String city) {
+    QPost post = QPost.post;
+    QUser user = QUser.user;
+    QDistrict district = QDistrict.district;
+    return queryFactory
+        .selectFrom(post)
+        .where(post.city.name.eq(city))
+        .join(post.user, user).fetchJoin()
+        .join(post.district, district).fetchJoin()
+        .limit(8)
+        .orderBy(post.createdAt.desc())
+        .fetch();
+  }
 }

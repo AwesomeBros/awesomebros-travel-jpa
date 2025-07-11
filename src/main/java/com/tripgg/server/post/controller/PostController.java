@@ -27,4 +27,10 @@ public class PostController {
     List<PostResponse> response = postService.findPostsAllBySort(sort);
     return Api.OK(response);
   }
+
+  @GetMapping("city")
+  public Api<List<PostResponse>> findPostsAllByCity(@RequestParam("city") String city) {
+    List<PostResponse> response = postService.findPostsAllByCity(city);
+    return Api.OK(response);
+  }
 }

@@ -8,4 +8,6 @@ public interface PostService {
 
   List<PostResponse> findPostsAllBySort(String sort);
 
+  List<PostResponse> findPostsAllByCity(String city);
+
 }
