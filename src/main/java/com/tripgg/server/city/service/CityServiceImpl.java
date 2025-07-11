@@ -18,8 +18,8 @@ public class CityServiceImpl implements CityService {
 
   @Override
   public List<CityResponse> findAll(int countryId) {
-    List<City> countries = cityRepository.findByCountryIdOrderByNameAsc(countryId);
-    List<CityResponse> response = countries.stream()
+    List<City> cities = cityRepository.findByCountryIdOrderByNameAsc(countryId);
+    List<CityResponse> response = cities.stream()
         .map(CityResponse::from)
         .toList();
     return response;
