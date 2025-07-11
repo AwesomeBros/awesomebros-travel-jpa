@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.tripgg.server.post.entity.Post;
@@ -16,6 +17,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -33,7 +35,9 @@ import lombok.NoArgsConstructor;
 public class User {
 
   @Id
-  @GeneratedValue(generator = "UUID")
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @JdbcTypeCode(SqlTypes.VARCHAR)
+  @Column(name = "id", columnDefinition = "VARCHAR(36)")
   private UUID id;
 
   private String nickname;
@@ -47,11 +51,11 @@ public class User {
   private String url;
 
   @Enumerated(EnumType.STRING)
-  @ColumnDefault("'USER'")
-  private Role role;
+  @Builder.Default
+  private Role role = Role.USER;
 
-  @ColumnDefault("'일반'")
-  private String provider;
+  @Builder.Default
+  private String provider = "일반";
 
   @CreatedDate
   @Column(name = "created_at")

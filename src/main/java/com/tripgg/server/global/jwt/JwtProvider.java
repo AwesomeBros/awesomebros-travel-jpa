@@ -43,12 +43,12 @@ public class JwtProvider {
     this.refreshTokenExpiredAt = refreshTokenExpiredAt;
   }
 
-  public String createAccessToken(String email, UUID id, Role role) {
+  public String createAccessToken(String username, UUID id, Role role) {
     Instant now = Instant.now();
     Instant expiryInstant = now.plus(Duration.ofSeconds(accessTokenExpiredAt));
     Date expiredAt = Date.from(expiryInstant);
     String jwt = Jwts.builder().signWith(accessTokenSigningKey,
-        SignatureAlgorithm.HS256).setSubject(email)
+        SignatureAlgorithm.HS256).setSubject(username)
         .claim("id", id)
         .claim("role", role).setIssuedAt(new Date()).setExpiration(expiredAt).compact();
     LOGGER.info("Access Token 생성 완료");

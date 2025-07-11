@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
     User newUser = User.builder()
         .nickname(request.getNickname())
         .username(request.getUsername())
+        .email(request.getEmail())
         .password(encodedPassword)
         .build();
 
