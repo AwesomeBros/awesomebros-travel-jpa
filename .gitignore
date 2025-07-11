@@ -37,3 +37,4 @@ out/
 resources/
 application.yml
 .env
+/logs

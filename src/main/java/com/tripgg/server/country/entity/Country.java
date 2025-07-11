@@ -3,6 +3,7 @@ package com.tripgg.server.country.entity;
 import java.util.List;
 
 import com.tripgg.server.city.entity.City;
+import com.tripgg.server.post.entity.Post;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -11,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +22,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "countries")
+@Entity
+@Table(name = "countries")
 public class Country {
 
   @Id
@@ -30,4 +33,7 @@ public class Country {
 
   @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<City> cities;
+
+  @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Post> posts;
 }
