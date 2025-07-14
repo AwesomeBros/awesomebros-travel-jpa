@@ -26,6 +26,11 @@ public enum ErrorCode implements ErrorCodeInterface {
 
   CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND.value(), 404, "존재하지 않는 카테고리입니다."),
 
+  COUNTRY_NOT_FOUND(HttpStatus.NOT_FOUND.value(), 404, "존재하지 않는 국가입니다."),
+  CITY_NOT_FOUND(HttpStatus.NOT_FOUND.value(), 404, "존재하지 않는 도시입니다."),
+  DISTRICT_NOT_FOUND(HttpStatus.NOT_FOUND.value(), 404, "존재하지 않는 지역입니다."),
+  LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND.value(), 404, "존재하지 않는 장소입니다."),
+
   POST_NOT_FOUND(HttpStatus.NOT_FOUND.value(), 404, "존재하지 않는 게시글입니다."),
 
   IMAGE_FILES_MOVE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), 500, "이미지 파일 이동 중 오류 발생"),

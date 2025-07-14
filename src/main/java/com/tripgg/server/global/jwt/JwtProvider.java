@@ -35,8 +35,8 @@ public class JwtProvider {
   public JwtProvider(
       @Value("${jwt.access-token-secret-key}") String accessTokenSecretKey,
       @Value("${jwt.refresh-token-secret-key}") String refreshTokenSecretKey,
-      @Value("${jwt.access-token-expiredAt}") long accessTokenExpiredAt,
-      @Value("${jwt.refresh-token-expiredAt}") long refreshTokenExpiredAt) {
+      @Value("${jwt.access-token-expired-at}") long accessTokenExpiredAt,
+      @Value("${jwt.refresh-token-expired-at}") long refreshTokenExpiredAt) {
     this.accessTokenSigningKey = Keys.hmacShaKeyFor(accessTokenSecretKey.getBytes(StandardCharsets.UTF_8));
     this.refreshTokenSigningKey = Keys.hmacShaKeyFor(refreshTokenSecretKey.getBytes(StandardCharsets.UTF_8));
     this.accessTokenExpiredAt = accessTokenExpiredAt;

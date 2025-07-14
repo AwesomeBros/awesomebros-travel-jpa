@@ -8,6 +8,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tripgg.server.global.error.ErrorCode;
 import com.tripgg.server.global.error.ErrorCodeInterface;
+import com.tripgg.server.global.message.ResponseMessageInterface;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,10 +28,10 @@ public class Api<T> {
   @Valid
   private T body;
 
-  public static <T> Api<T> OK(T data, String message) {
+  public static <T> Api<T> OK(T data, ResponseMessageInterface responseMessage) {
     Api<T> api = new Api<T>();
     api.statusCode = 200;
-    api.message = message;
+    api.message = responseMessage.getMessage();
     api.body = data;
     api.timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     api.path = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
