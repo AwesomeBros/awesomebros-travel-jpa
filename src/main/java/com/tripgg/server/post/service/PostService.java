@@ -32,4 +32,12 @@ public interface PostService {
    */
   PostResponse createPost(PostRequest request, UUID userId);
 
+  /**
+   * 게시물 상세 조회
+   * 
+   * @param id 게시물 ID
+   * @return 게시물 응답 (PostResponse)
+   */
+  PostResponse findPostById(int id);
+
 }

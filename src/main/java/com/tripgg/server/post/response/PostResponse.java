@@ -1,5 +1,6 @@
 package com.tripgg.server.post.response;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.tripgg.server.district.response.DistrictResponse;
@@ -27,7 +28,8 @@ public class PostResponse {
   private String slug;
   private int viewCount;
   private String url;
-  private String createdAt;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
   private DistrictResponse district;
   private List<LocationResponse> locations;
 
@@ -40,7 +42,8 @@ public class PostResponse {
         .slug(post.getSlug())
         .url(post.getUrl())
         .viewCount(post.getViewCount())
-        .createdAt(post.getCreatedAt().toString())
+        .createdAt(post.getCreatedAt())
+        .updatedAt(post.getUpdatedAt())
         .district(DistrictResponse.from(post.getDistrict()))
         .locations(post.getLocations().stream()
             .map(LocationResponse::from)

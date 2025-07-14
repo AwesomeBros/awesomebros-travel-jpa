@@ -3,6 +3,7 @@ package com.tripgg.server.post.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,18 @@ public class PostController {
   @GetMapping("city")
   public Api<List<PostResponse>> findPostsAllByCity(@RequestParam("city") String city) {
     List<PostResponse> response = postService.findPostsAllByCity(city);
+    return Api.OK(response);
+  }
+
+  /**
+   * 게시물 상세 조회
+   * 
+   * @param id 게시물 ID
+   * @return 게시물 응답 (PostResponse)
+   */
+  @GetMapping("{id}")
+  public Api<PostResponse> findPostById(@PathVariable("id") int id) {
+    PostResponse response = postService.findPostById(id);
     return Api.OK(response);
   }
 

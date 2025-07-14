@@ -76,6 +76,19 @@ public class PostServiceImpl implements PostService {
   }
 
   /**
+   * 게시물 상세 조회
+   * 
+   * @param id 게시물 ID
+   * @return 게시물 응답 (PostResponse)
+   */
+  @Override
+  public PostResponse findPostById(int id) {
+    Post post = postRepository.findById(id)
+        .orElseThrow(() -> new ApiException(ErrorCode.POST_NOT_FOUND));
+    return PostResponse.from(post);
+  }
+
+  /**
    * 게시물 등록
    * 
    * @param PostRequest, user

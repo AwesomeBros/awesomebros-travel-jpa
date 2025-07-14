@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.tripgg.server.city.entity.City;
 import com.tripgg.server.comment.entity.Comment;
@@ -54,6 +55,10 @@ public class Post {
   @CreationTimestamp
   @Column(name = "created_at")
   private LocalDateTime createdAt;
+
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
 
   private String url;
 
