@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.tripgg.server.city.entity.City;
+import com.tripgg.server.comment.entity.Comment;
 import com.tripgg.server.country.entity.Country;
 import com.tripgg.server.district.entity.District;
 import com.tripgg.server.location.entity.Location;
@@ -71,6 +72,10 @@ public class Post {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "countries_id")
   private Country country;
+
+  @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @Default
+  private List<Comment> comments = new ArrayList<>();
 
   @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @Default

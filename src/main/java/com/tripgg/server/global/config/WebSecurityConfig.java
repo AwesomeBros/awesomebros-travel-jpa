@@ -40,7 +40,9 @@ public class WebSecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/posts/**", "/countries/**", "/cities/**", "/districts/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/posts/**", "/countries/**", "/cities/**", "/districts/**",
+                "/comments/**")
+            .permitAll()
             .requestMatchers("/files/**", "/uploads/**").permitAll()
             .anyRequest().authenticated())
         .httpBasic(HttpBasicConfigurer::disable)

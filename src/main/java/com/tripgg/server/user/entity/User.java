@@ -1,13 +1,15 @@
 package com.tripgg.server.user.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.annotation.CreatedDate;
 
+import com.tripgg.server.comment.entity.Comment;
 import com.tripgg.server.post.entity.Post;
 
 import jakarta.persistence.CascadeType;
@@ -23,6 +25,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -57,10 +60,14 @@ public class User {
   @Builder.Default
   private String provider = "일반";
 
-  @CreatedDate
+  @CreationTimestamp
   @Column(name = "created_at")
   private LocalDateTime createdAt;
 
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Post> posts;
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @Default
+  private List<Comment> comments = new ArrayList<>();
 }
