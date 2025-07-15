@@ -2,9 +2,14 @@ package com.tripgg.server.post.service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.tripgg.server.city.entity.City;
@@ -22,7 +27,9 @@ import com.tripgg.server.location.request.LocationRequest;
 import com.tripgg.server.post.entity.Post;
 import com.tripgg.server.post.repository.PostQueryRepository;
 import com.tripgg.server.post.repository.PostRepository;
+import com.tripgg.server.post.request.PostFilterRequest;
 import com.tripgg.server.post.request.PostRequest;
+import com.tripgg.server.post.response.PostListResponse;
 import com.tripgg.server.post.response.PostResponse;
 import com.tripgg.server.user.entity.User;
 import com.tripgg.server.user.repository.UserRepository;
@@ -44,6 +51,42 @@ public class PostServiceImpl implements PostService {
   private final UserRepository userRepository;
   private final ImageService imageService;
   private final LocationRepository locationRepository;
+
+  /**
+   * 전체 & 국가별 & 도시별 & 지역별 게시물 조회
+   * 
+   * @param request 필터 요청 (PostFilterRequest)
+   * @return 전체 & 국가별 & 도시별 & 지역별 게시물 목록 응답 (PostListResponse)
+   */
+  @Override
+  public PostListResponse findPostsAll(PostFilterRequest request) {
+    int page = request.getPage();
+    int limit = request.getLimit();
+    String countryName = request.getCountry();
+    String cityName = request.getCity();
+    String districtName = request.getDistrict();
+
+    int totalCount = postQueryRepository.totalCount(countryName, cityName,
+        districtName);
+
+    Pageable pageable = PageRequest.of(
+        page - 1,
+        limit,
+        Sort.by(Sort.Direction.ASC, "id"));
+
+    Page<Post> postPage = postQueryRepository.findPostsAll(countryName, cityName,
+        districtName, pageable);
+
+    List<PostResponse> postResponses = postPage.getContent().stream()
+        .map(PostResponse::from)
+        .collect(Collectors.toList());
+    return PostListResponse.builder()
+        .page(page)
+        .data(postResponses)
+        .totalCount(totalCount)
+        .limit(limit)
+        .build();
+  }
 
   /**
    * 메인 인기 & 최신 게시물 조회

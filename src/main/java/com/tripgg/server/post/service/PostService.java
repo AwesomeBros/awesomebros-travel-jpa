@@ -3,10 +3,20 @@ package com.tripgg.server.post.service;
 import java.util.List;
 import java.util.UUID;
 
+import com.tripgg.server.post.request.PostFilterRequest;
 import com.tripgg.server.post.request.PostRequest;
+import com.tripgg.server.post.response.PostListResponse;
 import com.tripgg.server.post.response.PostResponse;
 
 public interface PostService {
+
+  /**
+   * 전체 & 국가별 & 도시별 & 지역별 게시물 조회
+   * 
+   * @param request 필터 요청 (PostFilterRequest)
+   * @return 전체 & 국가별 & 도시별 & 지역별 게시물 목록 응답 (PostListResponse)
+   */
+  PostListResponse findPostsAll(PostFilterRequest request);
 
   /**
    * 메인 인기 & 최신 게시물 조회
@@ -39,5 +49,4 @@ public interface PostService {
    * @return 게시물 응답 (PostResponse)
    */
   PostResponse findPostById(int id);
-
 }
